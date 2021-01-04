@@ -1,0 +1,10 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.ooadpj.entity.user.Expert" table="EXPERT">
+        <id name="id" column="id" type="java.lang.Integer"></id>
+        <property name="name" column="name" type='string'></property>
+
+    </class>
+</hibernate-mapping>

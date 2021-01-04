@@ -19,10 +19,10 @@ public class BasicSupervisionTasks extends SupervisoryTask {
     /**
      *本次市场自检任务下，每个农贸市场的得分情况
      */
-    private Map<String, Grade> marketGrades;
+    private Map<Integer, Grade> marketGrades;
 
-    public BasicSupervisionTasks(TaskType taskType, String id, String name, String description, Date deadline) {
-        super(taskType, id, name, description, deadline, new HashMap<String, AgriMarketSupervisionTask>(20));
+    public BasicSupervisionTasks(TaskType taskType, Integer id, String name, String description, Date deadline) {
+        super(taskType, id, name, description, deadline, new HashMap<Integer, AgriMarketSupervisionTask>(20));
         setTaskType(TaskType.BasicSupervision);
         marketGrades = new HashMap<>(20);
     }

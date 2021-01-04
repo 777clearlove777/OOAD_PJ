@@ -1,4 +1,5 @@
-import Entity.User;
+
+import com.ooadpj.entity.user.Expert;
 import org.hibernate.*;
 import org.hibernate.cfg.Configuration;
 
@@ -27,9 +28,10 @@ public class Main {
 
 
             Transaction transaction = session.beginTransaction();
-            User user = new User();
-            user.setAge(103);
-            user.setUsername("xxx");
+
+            Expert user = new Expert();
+            user.setId(1);
+            user.setName("xxx");
             session.save(user);
 
             transaction.commit();

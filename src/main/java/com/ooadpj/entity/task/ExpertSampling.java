@@ -25,8 +25,8 @@ public class ExpertSampling extends SupervisoryTask {
      */
     private Grade expertGrade;
 
-    public ExpertSampling(TaskType taskType, String id, String name, String description, Date deadline, Expert expert) {
-        super(taskType, id, name, description, deadline, new HashMap<String, AgriMarketSupervisionTask>(20));
+    public ExpertSampling(TaskType taskType, Integer id, String name, String description, Date deadline, Expert expert) {
+        super(taskType, id, name, description, deadline, new HashMap<Integer, AgriMarketSupervisionTask>(20));
         setTaskType(TaskType.ExpertSampling);
         this.expert = expert;
     }

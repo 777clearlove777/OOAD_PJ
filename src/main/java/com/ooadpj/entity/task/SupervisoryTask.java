@@ -24,7 +24,7 @@ public abstract class SupervisoryTask {
     /**
      *任务ID
      */
-    private String id;
+    private Integer id;
     /**
      * 任务名称
      */
@@ -40,7 +40,7 @@ public abstract class SupervisoryTask {
     /**
      * 关联多个农贸市场监管任务(String id, AgriMarketSupervisionTask 农贸市场监管任务)
      */
-    private Map<String, AgriMarketSupervisionTask> marketSupervisionTasks;
+    private Map<Integer, AgriMarketSupervisionTask> marketSupervisionTasks;
 
 
 }

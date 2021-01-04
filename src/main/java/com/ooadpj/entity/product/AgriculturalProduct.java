@@ -21,4 +21,5 @@ public abstract class AgriculturalProduct {
      * 产品名称
      */
     private String name;
+
 }

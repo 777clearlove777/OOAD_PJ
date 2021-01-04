@@ -38,10 +38,11 @@
             <resource>
                 <directory>src/main/java</directory>
                 <includes>
-                    <include>**/User.hbm.xml</include>
+                    <include>**/Expert.hbm.xml</include>
                 </includes>
                 <filtering>true</filtering>
             </resource>
         </resources>
+
     </build>
 </project>
