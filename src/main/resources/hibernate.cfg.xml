@@ -17,6 +17,8 @@
       </property>
 
       <mapping resource="com/ooadpj/entity/user/Expert.hbm.xml"/>
+      <mapping resource="com/ooadpj/entity/user/AgriculturalMarket.hbm.xml"/>
+      <mapping resource="com/ooadpj/entity/product/AgriculturalProduct.hbm.xml"/>
 
   </session-factory>
 </hibernate-configuration>

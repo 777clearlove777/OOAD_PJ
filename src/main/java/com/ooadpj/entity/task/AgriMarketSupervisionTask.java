@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 /**
@@ -34,6 +35,6 @@ public class AgriMarketSupervisionTask {
     /**
      * 抽检项报告
      */
-    private SamplingReport samplingReport;
-
+//    private SamplingReport samplingReport;
+    private ArrayList<SamplingReport> samplingReportArrayList;
 }

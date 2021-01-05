@@ -39,6 +39,8 @@
                 <directory>src/main/java</directory>
                 <includes>
                     <include>**/Expert.hbm.xml</include>
+                    <include>**/AgriculturalMarket.hbm.xml</include>
+                    <include>**/AgriculturalProduct.hbm.xml</include>
                 </includes>
                 <filtering>true</filtering>
             </resource>
