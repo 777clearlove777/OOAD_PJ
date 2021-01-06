@@ -22,11 +22,11 @@ public class AgriMarketSupervisionTask {
     /**
      * 关联的农贸市场
      */
-    //private AgriculturalMarket agriculturalMarket;
+    private AgriculturalMarket agriculturalMarket;
     /**
      * 1.指定农贸市场监管任务(自检)或2.该专家针对指定农贸市场的抽检的是否完成
      */
-    private boolean isFinished;
+    public boolean isFinished;
     /**
      * 该市场未完成的抽检类别
      */

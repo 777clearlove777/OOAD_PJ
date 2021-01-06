@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 
@@ -24,7 +23,7 @@ public abstract class SupervisoryTask {
     /**
      *任务ID
      */
-    private Integer id;
+    private String id;
     /**
      * 任务名称
      */
@@ -41,6 +40,12 @@ public abstract class SupervisoryTask {
      * 关联多个农贸市场监管任务(String id, AgriMarketSupervisionTask 农贸市场监管任务)
      */
     private Map<Integer, AgriMarketSupervisionTask> marketSupervisionTasks;
-
-
+    /**
+     * 进行任务评估
+     */
+    public abstract void taskAssess();
+    /**
+     * 打印任务信息
+     */
+    public abstract void print();
 }
