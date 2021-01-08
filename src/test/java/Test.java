@@ -9,7 +9,7 @@ public class Test extends Thread{
     public static void main(String[] args) throws ParseException {
 
         DateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
-        Date jiezhi = dateFormat1.parse("2021-01-06");
+        Date jiezhi = null;
         System.out.println(jiezhi);
 
         Date finish = new Date();

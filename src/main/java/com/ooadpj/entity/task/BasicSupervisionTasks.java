@@ -4,8 +4,6 @@ import com.ooadpj.common.DeductionStandard;
 import com.ooadpj.entity.Grade;
 import com.ooadpj.entity.SamplingReport;
 import com.ooadpj.entity.product.AgriculturalProduct;
-import com.ooadpj.entity.product.AquaticProducts;
-import com.ooadpj.entity.product.ProductType;
 import lombok.Data;
 
 import java.util.*;
@@ -47,24 +45,28 @@ public class BasicSupervisionTasks extends SupervisoryTask {
                 //获取录入结果日期
                 Date resultDate = samplingReport.getRecordDate();
 
-                Grade marketGrade = marketGrades.get(i);
+                Grade marketGrade = marketGrades.get(key);
+                ArrayList<String> arrayList = marketGrade.getGradeRecord();
 
                 //该类别按时完成
                 if(resultDate.before(getDeadline())){
-                    marketGrade.getGradeRecord().add(samplingReport.getRecordProductType()+ DeductionStandard.ADDSCORE);
+                    arrayList.add(samplingReport.getRecordProductType()+DeductionStandard.ADDSCORE);
+                    marketGrade.setGradeRecord(arrayList);
                     marketGrade.setGrade(marketGrade.getGrade()+10);
                     continue;
                 }
 
                 //未按时完成
                 if(resultDate.after(getDeadline())){
-                    marketGrade.getGradeRecord().add(samplingReport.getRecordProductType()+DeductionStandard.PEEKSCORE);
+                    arrayList.add(samplingReport.getRecordProductType()+DeductionStandard.PEEKSCORE);
+                    marketGrade.setGradeRecord(arrayList);
                     marketGrade.setGrade(marketGrade.getGrade()-10);
                 }
 
                 //20天以上未完成
                 if((resultDate.getTime() - getDeadline().getTime()) >= 86400000 * 20){
-                    marketGrade.getGradeRecord().add(samplingReport.getRecordProductType()+DeductionStandard.OVERTIMESCORE);
+                    arrayList.add(samplingReport.getRecordProductType()+DeductionStandard.OVERTIMESCORE);
+                    marketGrade.setGradeRecord(arrayList);
                     marketGrade.setGrade(marketGrade.getGrade()-20);
                 }
             }

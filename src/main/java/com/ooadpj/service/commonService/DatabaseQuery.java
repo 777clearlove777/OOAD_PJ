@@ -2,6 +2,7 @@ package com.ooadpj.service.commonService;
 
 import com.ooadpj.entity.product.AgriculturalProduct;
 import com.ooadpj.entity.user.AgriculturalMarket;
+import com.ooadpj.entity.user.Expert;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -53,6 +54,21 @@ public class DatabaseQuery {
 
             transaction.commit();
             return agriculturalProducts;
+        } finally {
+            session.close();
+        }
+    }
+
+    public List<Expert> expertsQuery() throws Exception {
+        final Session session = getSession();
+        try {
+
+            Transaction transaction = session.beginTransaction();
+            List<Expert> expertList =
+                    session.createSQLQuery("select * from EXPERT").addEntity(Expert.class).list();
+
+            transaction.commit();
+            return expertList;
         } finally {
             session.close();
         }
