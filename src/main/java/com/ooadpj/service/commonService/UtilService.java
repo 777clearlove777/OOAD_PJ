@@ -6,6 +6,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
+/**
+ * @author: 孟超
+ * @date: 2021/1/8
+ * @description: 公共的函数
+ */
 public class UtilService {
 
     public String getId(){

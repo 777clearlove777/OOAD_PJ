@@ -8,12 +8,16 @@ import com.ooadpj.service.commonService.CheckTasks;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * @author: 孟超
+ * @date: 2021/1/8
+ * @description: 监管局查看分数
+ */
 public class InquireScore {
 
     public void marketScore(){
 
         PublishTasks publishTasks = new PublishTasks();
-        CheckTasks checkTasks = new CheckTasks();
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("请输入您要查看的市场ID");

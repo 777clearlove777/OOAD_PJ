@@ -7,7 +7,7 @@ package com.ooadpj.entity.product;
  */
 public class ProductType {
 
-    public static final String AQUATICPRODUCTS = "水产品类";
-    public static final String LIVESTOCKPOULTRYMEAT = "畜禽肉类";
-    public static final String VEGETABLES = "蔬菜水果类";
+    public static final String AQUATICPRODUCTS = "水产品";
+    public static final String LIVESTOCKPOULTRYMEAT = "畜禽肉";
+    public static final String VEGETABLES = "蔬菜水果";
 }

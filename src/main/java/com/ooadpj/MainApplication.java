@@ -5,6 +5,7 @@ import com.ooadpj.service.commonService.CheckTasks;
 import com.ooadpj.service.expertService.ExpertAssessTasks;
 import com.ooadpj.service.supervisionBureauService.InquireScore;
 import com.ooadpj.service.supervisionBureauService.PublishTasks;
+import com.ooadpj.service.supervisionBureauService.Unqualified;
 
 import java.util.Scanner;
 
@@ -20,6 +21,7 @@ public class MainApplication {
     private static ExpertAssessTasks expertAssessTasks = new ExpertAssessTasks();
     private static MarketAssessTasks marketAssessTasks = new MarketAssessTasks();
     private static InquireScore inquireScore = new InquireScore();
+    private static Unqualified unqualified = new Unqualified();
 
     public static void main(String[] args) throws Exception {
 
@@ -34,7 +36,8 @@ public class MainApplication {
             switch (identityType){
                 //监管局
                 case "1":
-                    System.out.println("请选择操作类型：\n1 发布监管任务 \n2 查看任务完成情况 \n3 查看专家得分 \n4 查看市场得分");
+                    System.out.println(
+                            "请选择操作类型：\n1 发布监管任务 \n2 查看任务完成情况 \n3 查看专家得分 \n4 查看市场得分 \n5 查看某一产品的不合格数");
                     String operationType = scanner.nextLine();
                     if(operationType.equals("1")){
                         //分配任务
@@ -51,6 +54,10 @@ public class MainApplication {
                     if(operationType.equals("4")){
                         //查看市场得分
                         inquireScore.marketScore();
+                    }
+                    if(operationType.equals("5")){
+                        //查看不合格数
+                        unqualified.unqualified();
                     }
                     break;
                 //专家

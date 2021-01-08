@@ -11,6 +11,11 @@ import org.hibernate.cfg.Configuration;
 
 import java.util.List;
 
+/**
+ * @author: 孟超
+ * @date: 2021/1/8
+ * @description: 数据库查询相关
+ */
 public class DatabaseQuery {
     private static final SessionFactory ourSessionFactory;
 

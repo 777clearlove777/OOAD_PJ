@@ -6,6 +6,11 @@ import com.ooadpj.service.expertService.ExpertAssessTasks;
 
 import java.util.ArrayList;
 
+/**
+ * @author: 孟超
+ * @date: 2021/1/8
+ * @description: 市场进行任务评估
+ */
 public class MarketAssessTasks {
 
     public void marketAssessTasks(String marketId){
