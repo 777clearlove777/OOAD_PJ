@@ -3,6 +3,7 @@ package com.ooadpj.service.supervisionBureauService;
 import com.ooadpj.entity.Grade;
 import com.ooadpj.entity.task.BasicSupervisionTasks;
 import com.ooadpj.entity.task.ExpertSampling;
+import com.ooadpj.entity.task.SupervisoryTask;
 import com.ooadpj.service.commonService.CheckTasks;
 
 import java.util.ArrayList;
@@ -14,6 +15,32 @@ import java.util.Scanner;
  * @description: 监管局查看分数
  */
 public class InquireScore {
+    public Grade getMarketScore(int marketId){
+        PublishTasks publishTasks = new PublishTasks();
+
+        //获取所有市场任务
+        ArrayList<BasicSupervisionTasks> marketSupervisoryTasks = publishTasks.getMarketSupervisoryTasks();
+        for (BasicSupervisionTasks basicSupervisionTasks : marketSupervisoryTasks){
+            System.out.println(basicSupervisionTasks.getName()+"++++++++++++++++");
+            //评估
+            basicSupervisionTasks.taskAssess();
+            //获取分数记录
+            Grade marketGrade = basicSupervisionTasks.getMarketGrades().get(marketId);
+
+            return marketGrade;
+
+        }
+        return null;
+    }
+
+    public Grade getExpertScore(int expertId){
+        CheckTasks checkTasks = new CheckTasks();
+
+        //获取专家任务
+        ArrayList<ExpertSampling> expertSamplingArrayList = checkTasks.getExpertSupervisoryTasks(expertId + "");
+        expertSamplingArrayList.get(0).taskAssess();
+        return expertSamplingArrayList.get(0).getExpertGrade();
+    }
 
     public void marketScore(){
 

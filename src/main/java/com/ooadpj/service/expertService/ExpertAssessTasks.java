@@ -15,8 +15,11 @@ import java.util.*;
  * @description: 专家评估任务
  */
 public class ExpertAssessTasks {
+    Scanner scanner = new Scanner(System.in);
+
 
     public void expertAssessTasks(String expertId){
+        scanner = new Scanner(System.in);
 
         CheckTasks checkTasks = new CheckTasks();
 
@@ -53,7 +56,6 @@ public class ExpertAssessTasks {
         ArrayList<SamplingReport> samplingReportArrayList = agriMarketSupervisionTask.getSamplingReportArrayList();
 
         System.out.println("您当前操作市场为："+agriMarketSupervisionTask.getAgriculturalMarket().getName());
-
         for (SamplingReport samplingReport : samplingReportArrayList){
             //抽检项报告录入成功
             if(samplingReportInput(samplingReport)){
@@ -66,7 +68,6 @@ public class ExpertAssessTasks {
     //录入当前产品的检查结果
     private boolean samplingReportInput(SamplingReport samplingReport){
         try{
-            Scanner scanner = new Scanner(System.in);
             System.out.println("录入产品为："+samplingReport.getRecordProductType()+"\n请输入当前产品的不合格数:");
             int unqualifiedNum = scanner.nextInt();
 

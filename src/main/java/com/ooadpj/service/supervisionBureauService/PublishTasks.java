@@ -6,9 +6,11 @@ import com.ooadpj.entity.product.AgriculturalProduct;
 import com.ooadpj.entity.task.*;
 import com.ooadpj.entity.user.AgriculturalMarket;
 import com.ooadpj.entity.user.Expert;
-import com.ooadpj.service.commonService.DatabaseQuery;
+import com.ooadpj.service.commonService.DatabaseDao;
 import com.ooadpj.service.commonService.UtilService;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.*;
 
 /**
@@ -18,21 +20,24 @@ import java.util.*;
  */
 public class PublishTasks {
 
-    private DatabaseQuery databaseQuery = new DatabaseQuery();
+    private DatabaseDao databaseDao = DatabaseDao.getInstance();
     private final UtilService utilService = new UtilService();
 
     //存储市场任务
-    private static ArrayList<BasicSupervisionTasks> marketSupervisoryTasks = new ArrayList<>();
+    public static ArrayList<BasicSupervisionTasks> marketSupervisoryTasks = new ArrayList<>();
     //专家任务
-    private static ArrayList<ExpertSampling> expertSupervisoryTasks = new ArrayList<>();
+    public static ArrayList<ExpertSampling> expertSupervisoryTasks = new ArrayList<>();
 
     //市场自检所选择的市场集合
-    private static Map<Integer, AgriculturalMarket> agriculturalMarketMap = new HashMap<>();
+    public static Map<Integer, AgriculturalMarket> agriculturalMarketMap = new HashMap<>();
     //专家所选市场集合
-    private static Map<Integer, AgriculturalMarket> agriculturalMarketMapOfExpert = new HashMap<>();
+    public static Map<Integer, AgriculturalMarket> agriculturalMarketMapOfExpert = new HashMap<>();
+
+    private Scanner scanner;
 
     public void publishTask() throws Exception {
-        Scanner scanner = new Scanner(System.in);
+        scanner = new Scanner(System.in);
+
         System.out.println("请选择发布类型：1 市场自检 2 专家抽检 3 市场自检和专家抽检");
 
         String type = scanner.nextLine();
@@ -54,7 +59,7 @@ public class PublishTasks {
                 getBasicSupervisionTasks(properties[0],properties[1],properties[2],utilService.getDeadline(properties[3]));
 
         //打印所有市场并返回市场集合map
-        Map<Integer,AgriculturalMarket> map =getMap();
+        Map<Integer,AgriculturalMarket> map = getMap();
 
         //获取评分
         Map<Integer, Grade> marketGrades = getMarketGrades(map);
@@ -67,7 +72,7 @@ public class PublishTasks {
         basicSupervisionTasks.setMarketSupervisionTasks(agriMarketSupervisionTaskMap);
 
         marketSupervisoryTasks.add(basicSupervisionTasks);
-
+        System.out.println("市场自检任务发布成功!");
     }
 
     private void expertCheck() throws Exception {
@@ -86,7 +91,6 @@ public class PublishTasks {
         //生成专家任务任务
         expertSampling = getExpertSampling(
                 properties[0],properties[1],properties[2],utilService.getDeadline(properties[3]),expert);
-
         Map<Integer,AgriculturalMarket> map = getMap();
         expertSelectMarket(map);
 
@@ -98,6 +102,7 @@ public class PublishTasks {
         expertSampling.setMarketSupervisionTasks(agriMarketSupervisionTaskMap);
 
         expertSupervisoryTasks.add(expertSampling);
+
     }
 
     private void allTypeCheck() throws Exception {
@@ -111,7 +116,6 @@ public class PublishTasks {
     //返回任务基本属性
     private String[] getTaskProperties(){
         String[] properties = new String[4];
-        Scanner scanner = new Scanner(System.in);
         //任务id
         properties[0] =  utilService.getId();
         //任务名称
@@ -135,7 +139,6 @@ public class PublishTasks {
 
     //选择检测市场，返回市场任务评分集合
     private Map<Integer, Grade> getMarketGrades(Map<Integer,AgriculturalMarket> map) {
-        Scanner scanner = new Scanner(System.in);
         //评分
         agriculturalMarketMap.clear();
         Map<Integer, Grade> marketGrades = new HashMap<>();
@@ -154,7 +157,6 @@ public class PublishTasks {
     private void expertSelectMarket(Map<Integer,AgriculturalMarket> map){
         agriculturalMarketMapOfExpert.clear();
 
-        Scanner scanner = new Scanner(System.in);
         System.out.println("请选择本次任务分配市场：(输入非数字结束选择)");
         while (scanner.hasNextInt()){
             int marketId = scanner.nextInt();
@@ -165,9 +167,8 @@ public class PublishTasks {
     private Map<Integer, AgriMarketSupervisionTask> getAgriMarketSupervisionTaskMap(
             Map<Integer,AgriculturalMarket> map, Map<Integer, AgriculturalMarket> MarketMap) throws Exception {
 
-        Scanner scanner = new Scanner(System.in);
         //获取产品类别
-        List<AgriculturalProduct> agriculturalProductList = databaseQuery.productQuery();
+        List<AgriculturalProduct> agriculturalProductList = databaseDao.productQuery();
         Map<Integer,AgriculturalProduct> productMap = new HashMap<>();
         System.out.println("请为每个市场分配调查任务：");
 
@@ -191,6 +192,7 @@ public class PublishTasks {
 
             Set<AgriculturalProduct> productSet = new HashSet<>();
             ArrayList<SamplingReport> samplingReportArrayList = new ArrayList<>();
+            scanner.next();
             while (scanner.hasNextInt()){
                 int productId = scanner.nextInt();
                 AgriculturalProduct agriculturalProduct = productMap.get(productId);
@@ -199,7 +201,6 @@ public class PublishTasks {
                 SamplingReport samplingReport = new SamplingReport(null,agriculturalProduct.getName(),0);
                 samplingReportArrayList.add(samplingReport);
             }
-            scanner.next();
             agriMarketSupervisionTask.setUnFinishedProducts(productSet);
             agriMarketSupervisionTask.setSamplingReportArrayList(samplingReportArrayList);
 
@@ -214,7 +215,7 @@ public class PublishTasks {
 
         Map<Integer,AgriculturalMarket> map = new HashMap<>();
 
-        List<AgriculturalMarket> agriculturalMarkets = databaseQuery.marketsQuery();
+        List<AgriculturalMarket> agriculturalMarkets = databaseDao.marketsQuery();
         for(AgriculturalMarket agriculturalMarket: agriculturalMarkets){
             System.out.println(agriculturalMarket.getId()+"---->"+agriculturalMarket.getName());
             map.put(agriculturalMarket.getId(),agriculturalMarket);
@@ -229,10 +230,8 @@ public class PublishTasks {
 
     //选择专家
     private Expert getExpert() throws Exception {
-        Scanner scanner = new Scanner(System.in);
         //选择专家
-        databaseQuery = new DatabaseQuery();
-        List<Expert> expertList = databaseQuery.expertsQuery();
+        List<Expert> expertList = databaseDao.expertsQuery();
         Map<Integer,Expert> expertMap = new HashMap<>();
         for(Expert expert : expertList){
             System.out.println(expert.getId()+"---->"+expert.getName());
@@ -258,4 +257,5 @@ public class PublishTasks {
     public ArrayList<BasicSupervisionTasks> getMarketSupervisoryTasks() {
         return marketSupervisoryTasks;
     }
+
 }

@@ -39,6 +39,12 @@ public class CheckTasks {
         printMarketMessage(agriMarketSupervisionTaskArrayList);
     }
 
+    //获取某一市场任务
+    public ArrayList<AgriMarketSupervisionTask> getMarketTask(String marketId){
+        ArrayList<AgriMarketSupervisionTask> agriMarketSupervisionTaskArrayList = getBasicSupervisionTasks(marketId);
+        return agriMarketSupervisionTaskArrayList;
+    }
+
     //获取某一专家的任务
     public ArrayList<ExpertSampling> getExpertSupervisoryTasks(String expertId){
         ArrayList<ExpertSampling> tasksOfExpert = new ArrayList<>();
@@ -57,9 +63,13 @@ public class CheckTasks {
         ArrayList<AgriMarketSupervisionTask> tasksOfMarket = new ArrayList<>();
 
         ArrayList<BasicSupervisionTasks> basicSupervisionTasks = publishTasks.getMarketSupervisoryTasks();
+        AgriMarketSupervisionTask task;
         for(BasicSupervisionTasks basicSupervisionTask : basicSupervisionTasks){
             System.out.println("该任务截止日期为：" + basicSupervisionTask.getDeadline());
-            tasksOfMarket.add(basicSupervisionTask.getMarketSupervisionTasks().get(Integer.parseInt(marketId)));
+            task = basicSupervisionTask.getMarketSupervisionTasks().get(Integer.parseInt(marketId));
+            if(task != null) {
+                tasksOfMarket.add(task);
+            }
         }
         return tasksOfMarket;
     }

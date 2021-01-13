@@ -29,6 +29,11 @@ public class Unqualified {
         put(ProductType.VEGETABLES,0);
     }};
 
+    public int getTotalUnqualifiedNumOfProduct(String productName){
+        unqualified();
+        return marketResult.get(productName) + expertResult.get(productName);
+    }
+
     public void unqualified(){
 
         PublishTasks publishTasks = new PublishTasks();
@@ -62,7 +67,6 @@ public class Unqualified {
                 marketSumOfProduct(agriMarketSupervisionTask);
             }
             printMarketResult();
-            marketResult.clear();
         }
     }
 
@@ -81,7 +85,6 @@ public class Unqualified {
                 expertSumOfProduct(agriMarketSupervisionTask);
             }
             printExpertResult();
-            expertResult.clear();
         }
     }
 

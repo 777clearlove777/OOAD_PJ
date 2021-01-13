@@ -55,7 +55,7 @@ public class ExpertSampling extends SupervisoryTask {
                 if(resultDate.before(getDeadline())){
                     arrayList.add(samplingReport.getRecordProductType()+DeductionStandard.ADDSCORE);
                     expertGrade.setGradeRecord(arrayList);
-                    expertGrade.setGrade(expertGrade.getGrade()+10);
+                    expertGrade.setGrade(10);
                     continue;
                 }
 
@@ -63,14 +63,14 @@ public class ExpertSampling extends SupervisoryTask {
                 if(resultDate.after(getDeadline())){
                     arrayList.add(samplingReport.getRecordProductType()+DeductionStandard.PEEKSCORE);
                     expertGrade.setGradeRecord(arrayList);
-                    expertGrade.setGrade(expertGrade.getGrade()-10);
+                    expertGrade.setGrade(-10);
                 }
 
                 //20以上未完成
                 if((resultDate.getTime() - getDeadline().getTime()) >= 86400000 * 20){
                     arrayList.add(samplingReport.getRecordProductType()+DeductionStandard.OVERTIMESCORE);
                     expertGrade.setGradeRecord(arrayList);
-                    expertGrade.setGrade(expertGrade.getGrade()-20);
+                    expertGrade.setGrade(-30);
                 }
 
             }

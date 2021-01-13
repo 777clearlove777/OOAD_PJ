@@ -48,11 +48,15 @@ public class BasicSupervisionTasks extends SupervisoryTask {
                 Grade marketGrade = marketGrades.get(key);
                 ArrayList<String> arrayList = marketGrade.getGradeRecord();
 
+                if(resultDate == null){
+                    continue;
+                }
+
                 //该类别按时完成
                 if(resultDate.before(getDeadline())){
                     arrayList.add(samplingReport.getRecordProductType()+DeductionStandard.ADDSCORE);
                     marketGrade.setGradeRecord(arrayList);
-                    marketGrade.setGrade(marketGrade.getGrade()+10);
+                    marketGrade.setGrade(10);
                     continue;
                 }
 
@@ -60,14 +64,14 @@ public class BasicSupervisionTasks extends SupervisoryTask {
                 if(resultDate.after(getDeadline())){
                     arrayList.add(samplingReport.getRecordProductType()+DeductionStandard.PEEKSCORE);
                     marketGrade.setGradeRecord(arrayList);
-                    marketGrade.setGrade(marketGrade.getGrade()-10);
+                    marketGrade.setGrade(-10);
                 }
 
                 //20天以上未完成
                 if((resultDate.getTime() - getDeadline().getTime()) >= 86400000 * 20){
                     arrayList.add(samplingReport.getRecordProductType()+DeductionStandard.OVERTIMESCORE);
                     marketGrade.setGradeRecord(arrayList);
-                    marketGrade.setGrade(marketGrade.getGrade()-20);
+                    marketGrade.setGrade(-30);
                 }
             }
         }
